@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
 const webhookSourceSchema = new mongoose.Schema({
     user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true,
+        type:String,
+        ref:"User",        
     },
     service:{
         type:String,
@@ -19,10 +18,14 @@ const webhookSourceSchema = new mongoose.Schema({
         type:[String],
         default:[]
     },
+    eventsReceived:{
+        type:Number,
+        default:0
+    },
     active:{
         type:Boolean,
         default:true
     }    
 },
-{timeStamps:true});
+{timestamps:true});
 export default mongoose.model("WebhookSource", webhookSourceSchema);
