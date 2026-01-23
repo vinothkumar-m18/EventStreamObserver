@@ -30,7 +30,11 @@ const webhookSourceSchema = new mongoose.Schema({
     secret:{
         type:String,
         required:true
-    }    
+    },
+    providerMeta:{
+        type:mongoose.Schema.Types.Mixed;
+        default:{}
+    }
 },
 {timestamps:true});
 export default mongoose.model("WebhookSource", webhookSourceSchema);

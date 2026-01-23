@@ -15,6 +15,7 @@ export const register = async (req, res)=>{
             email,
             password:hashedPassword
         });
+        console.log('user registered');
         return res.status(200).json({message:'user registered'});        
     }catch(error){
         console.log('error registering user: ', error);
@@ -26,6 +27,7 @@ export const login = async (req, res) =>{
         const {email, password} = req.body;
         const user = await User.findOne({email});
         if(!user){
+            console.log('invalid credentials');
             return res.status(401).json({message:'invalid credentials'});
         }
         const isMatch = await bcrypt.compare(password, user.password);
@@ -37,6 +39,7 @@ export const login = async (req, res) =>{
             process.env.JWT_SECRET,
             {expiresIn:'7d'}
         );
+        console.log('logged in');
         return res.status(200).json({token});
     }catch(error){
         console.log('login error: ', error);

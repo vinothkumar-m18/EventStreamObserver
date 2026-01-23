@@ -1,7 +1,11 @@
 import axios from 'axios';
-const API_BASE = 'http://localhost:5000/api';
+import api from '../services/api.js';
 export const fetchEvents = async ()=>{
-    const res = await axios.get(`${API_BASE}/events`);
-    console.log('fetched events inside fetchEvents method : ', res.data);
-    return res.data;
+    try{
+        const res = await api.get('/events');
+        console.log('fetched events inside fetchEvents method : ', res.data.events);
+        return res.data.events;
+    }catch(error){
+        console.log('error fetching events inside fetchevents: ', error);
+    }
 };

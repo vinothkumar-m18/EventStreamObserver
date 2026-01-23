@@ -1,0 +1,24 @@
+.page{
+    padding: 20px;
+}
+select, input{
+    display: block;
+    margin-bottom: 10px;
+    padding: 6px;
+}
+.source-card{
+    padding: 10px;
+    margin-bottom: 10px;
+    border:1px solid #ccc;
+    background: #fafafa;
+}
+.events-container{
+    display: flex;
+    gap: 0px;
+    align-items: center;
+    margin-top: 5px;
+}
+.events-accepted-list{
+    display: flex;
+    
+}

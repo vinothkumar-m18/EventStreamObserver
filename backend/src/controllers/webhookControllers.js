@@ -4,7 +4,6 @@ import {io} from '../server.js';
 
 export const handleWebhook = async (req, res) => {
     try {
-        console.log('incoming webhook ', req.body);
         const endPointPath = req.params.endPointPath;
 
         let source = await WebhookSource.findOne({ endPointPath, active:true});

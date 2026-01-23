@@ -1,10 +1,11 @@
 import WebhookEvent from '../models/WebhookEvent.js';
 export const getAllEvents = async (req, res)=>{
     try{
-        const events = await WebhookEvent.find().sort({createdAt:-1}).limit(200);
-        return res.status(200).json(events);
+        
+        const events = await WebhookEvent.find().sort({createdAt:-1}).limit(200);        
+        return res.status(200).json({events});
     }catch(error){
-        console.log('error fetching events ', error);
+        console.log('error fetching events inside eventcontroller', error);
         return res.status(500).json({message:'internal server error'});
     }
 };
