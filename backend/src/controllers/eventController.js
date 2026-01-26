@@ -1,7 +1,6 @@
 import WebhookEvent from '../models/WebhookEvent.js';
 export const getAllEvents = async (req, res)=>{
-    try{
-        
+    try{        
         const events = await WebhookEvent.find().sort({createdAt:-1}).limit(200);        
         return res.status(200).json({events});
     }catch(error){

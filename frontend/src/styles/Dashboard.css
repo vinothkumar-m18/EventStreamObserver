@@ -1,13 +1,3 @@
 .page{
     padding: 20px;
 }
-.event-list{
-    list-style: none;
-    padding: 0;
-}
-.event-card{
-    padding: 10px;
-    margin-bottom: 10px;
-    border:1px solid #ddd;
-    background: #fafafa;
-}

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import socket from '../../src/socketClient.js';
 import { fetchEvents } from '../api/eventApi.js';
-import { useAuth } from '../context/AuthContext.jsx';
 import { Link } from "react-router-dom";
 import '../styles/App.css';
 import '../styles/Dashboard.css';
+import EventCard from './EventCard.jsx';
 export default function Dashboard() {
     const [events, setEvents] = useState([]);
     useEffect(() => {
@@ -37,13 +37,7 @@ export default function Dashboard() {
                 {events.length === 0 && <p>No events yet</p>}
                 <ul className="event-list">
                     {events.map(event => (
-                        <li key={event._id || event.id} className="event-card">
-                            <strong>{event.eventType}</strong>
-                            <br />
-                            <pre>{JSON.stringify(event.payload, null, 2)}</pre>
-                            <br />
-                            <small>{new Date(event.createdAt).toLocaleString()}</small>
-                        </li>
+                        <EventCard key = {event._id} event = {event}/>
                     ))}
                 </ul>
             </div>
