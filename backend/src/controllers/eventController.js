@@ -1,7 +1,7 @@
 import WebhookEvent from '../models/WebhookEvent.js';
 export const getAllEvents = async (req, res)=>{
     try{        
-        const events = await WebhookEvent.find().sort({createdAt:-1}).limit(200);        
+        const events = await WebhookEvent.find().sort({createdAt:-1}).limit(200).populate('source', 'service');        
         return res.status(200).json({events});
     }catch(error){
         console.log('error fetching events inside eventcontroller', error);

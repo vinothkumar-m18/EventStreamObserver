@@ -37,7 +37,7 @@ export default function Dashboard() {
                 {events.length === 0 && <p>No events yet</p>}
                 <ul className="event-list">
                     {events.map(event => (
-                        <EventCard key = {event._id} event = {event}/>
+                        <EventCard event = {event} key = {event._id}/>
                     ))}
                 </ul>
             </div>
