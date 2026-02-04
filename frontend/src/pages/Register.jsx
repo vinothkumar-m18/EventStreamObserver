@@ -8,8 +8,15 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const submit = async (e) => {
         e.preventDefault();
-        await api.post('/auth/register', { email, password });
-        alert('registered successfully. login now');
+        try{
+            const res = await api.post('/auth/register', { email, password });
+            alert(res.data.message || 'registered successfully');
+        }catch(error){
+            if(error.response || error.response.data){
+                alert(error.response.data.message);
+            }
+            console.log('error registering the user: ', error);
+        }
     }
     return (
         <>

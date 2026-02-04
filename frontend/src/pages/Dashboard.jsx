@@ -8,6 +8,7 @@ import EventCard from './EventCard.jsx';
 export default function Dashboard() {
     const [events, setEvents] = useState([]);
     useEffect(() => {
+        
         // load existing events
         fetchEvents().then(data => {
             setEvents(data);

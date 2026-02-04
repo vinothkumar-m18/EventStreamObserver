@@ -13,12 +13,14 @@ export default function Login() {
         e.preventDefault();
         try {
             const res = await api.post('/auth/login', { email, password });
-            if (res.data.token) {
-                alert('logged in successfully');
-            }
-            login(res.data.token);
-        } catch (error) {
-            console.log(error);
+            alert(res.data.message || 'logged in successfully');
+            console.log('printing token login.jsx: ', res.data.token);
+            login(res.data.token);            
+        } catch (error) {     
+            if(error.response || error.response.data){
+                alert(error.response.data.message);
+            }            
+            console.log('error logging in: ', error);
         }
     }
     return (

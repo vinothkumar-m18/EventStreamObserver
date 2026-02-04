@@ -30,7 +30,7 @@ export const createSource = async (req, res) => {
         });
     } catch (error) {
         console.log('error creating source: ', error);
-        return res.staus(500).json({ message: 'internal server error' });
+        return res.status(500).json({ message: 'internal server error' });
     }
 };
 export const getSourcesByUser = async (req, res) => {

@@ -40,7 +40,11 @@ export const login = async (req, res) =>{
             {expiresIn:'7d'}
         );
         console.log('logged in');
-        return res.status(200).json({token});
+        console.log('printing token login.js: ', token);
+        return res.json({
+            token,
+            message:'logged in'
+        });
     }catch(error){
         console.log('login error: ', error);
         return res.status(500).json({message:'internal server error'});
