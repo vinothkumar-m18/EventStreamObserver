@@ -15,7 +15,6 @@ export const register = async (req, res)=>{
             email,
             password:hashedPassword
         });
-        console.log('user registered');
         return res.status(200).json({message:'user registered'});        
     }catch(error){
         console.log('error registering user: ', error);
@@ -39,8 +38,6 @@ export const login = async (req, res) =>{
             process.env.JWT_SECRET,
             {expiresIn:'7d'}
         );
-        console.log('logged in');
-        console.log('printing token login.js: ', token);
         return res.json({
             token,
             message:'logged in'
