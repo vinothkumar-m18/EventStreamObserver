@@ -1,12 +1,22 @@
 import WebhookEvent from '../models/WebhookEvent.js';
-export const getAllEvents = async (req, res)=>{
-    try{        
-        const events = await WebhookEvent.find().sort({createdAt:-1}).limit(200).populate('source', 'service');        
+import WebhookSource from '../models/WebhookSource.js';
+export const getUserEvents = async (req, res)=>{
+    try{
+        const {userId} = req.userId;
+        const sources = await WebhookSource.find({user:userId}).select('_id');
+        const sourceIds = sources.map(src => src._id);
+        const events = await WebhookEvent.find({source:{$in:sourceIds}})    
+            .sort({createdAt:-1})
+            .limit(200)
+            .populate({
+                path:'source',
+                select:'service user'
+            });
         return res.status(200).json({events});
     }catch(error){
-        console.log('error fetching events inside eventcontroller', error);
+        console.log('error fetching events by user: ', error);
         return res.status(500).json({message:'internal server error'});
-    }
+    }    
 };
 export const getEventsBySource = async (req, res)=>{
     try{
