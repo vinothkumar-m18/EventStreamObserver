@@ -13,7 +13,7 @@ const PrivateRoute = ({children})=>{
 }
 function App(){
     return (
-        <BrowserRouter>
+        <BrowserRouter basename='/EventStreamObserver'>
             <Routes>
                 <Route path = '/login' element = {<Login/>}/>
                 <Route path = '/register' element = {<Register/>}/>
