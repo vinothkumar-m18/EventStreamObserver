@@ -42,8 +42,8 @@ const EventCard = ({ event }) => {
                     {commitUrl && (
                         <a href={commitUrl} target="_blank" rel = "noopener noreferrer">View Commit</a>
                     )}
-                    <span className = "source">Source: {event.source.service}</span>
-                    <span className = "source">User:{event.source.user.email}</span>
+                    <span className = "source">Source: {source?.service}</span>
+                    <span className = "source">User:{source?.user?.email || 'no email available'}</span>
                 </div>
             </div>
         </>

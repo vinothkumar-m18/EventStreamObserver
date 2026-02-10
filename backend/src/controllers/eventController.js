@@ -16,6 +16,7 @@ export const getUserEvents = async (req, res)=>{
                     select:'email'
                 }
             });
+            
         return res.status(200).json({events});
     }catch(error){
         console.log('error fetching events by user: ', error);

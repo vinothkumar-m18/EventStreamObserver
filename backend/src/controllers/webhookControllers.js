@@ -35,11 +35,15 @@ export const handleWebhook = async (req, res) => {
             ipAddress: req.ip,
             status: 'received'
         });
+        const populatedSource = await source.populate('user', 'email');
         io.emit('new-event', {
             id:event._id,
             eventType:event.eventType,
             payload:event.payload,
-            source:source.service,
+            source:{
+                service:populatedSource.service,
+                user:{email:populatedSource.user.email}
+            },
             createdAt:event.createdAt
         });
         console.log('event emitted');
