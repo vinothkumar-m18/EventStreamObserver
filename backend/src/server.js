@@ -10,8 +10,10 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 // embedding http server into a websocket server for real time data updates
 export const io = new Server(server, {
+    pintInterval:25000,
+    pintTimeout:60000,
     cors:{
-        origin:'*'
+        origin:'http://localhost:5173'
     }
 });
 try{
@@ -22,6 +24,7 @@ try{
         socket.on('disconnect', ()=>{
             console.log(`socket disconnected id:${socket.id} @${getTime()}`);
         });
+        socket.on('connect_error', (error) => console.error('error ', error));
     });
 }catch(error){
     console.log('socket error: ', error);
