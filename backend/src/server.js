@@ -3,7 +3,7 @@ import {Server} from 'socket.io';
 import app from './app.js';
 import dotenv from 'dotenv';
 import {connectDB} from './config/db.js';
-
+import { getTime } from './utils/getTime.js';
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 //create HTTP server from express app
@@ -16,11 +16,11 @@ export const io = new Server(server, {
 });
 try{
     io.on('connection', (socket)=>{
-        console.log('socket connected: ', socket.id);
+        console.log(`socket connected id:${socket.id} @${getTime()}`);
         // console.log(' from IP: ', socket.handshake.address);
         // console.log(' with headers: ', socket.handshake.headers.origin);
         socket.on('disconnect', ()=>{
-            console.log('socket disconnected: ', socket.id);
+            console.log(`socket disconnected id:${socket.id} @${getTime()}`);
         });
     });
 }catch(error){
