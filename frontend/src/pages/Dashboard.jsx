@@ -14,24 +14,20 @@ export default function Dashboard() {
             setEvents(data);
         });
         socket.on('new-event', handler);
-        console.log(`clients count before connection @${getTime()} id:${socket.id} - ${socket.listenerCount('new-event')}`);
 
         socket.on('connect', () => {
             console.log(`socket connected frontend id:${socket.id} @${getTime()}`)
-            console.log(`clients count after connection @${getTime()} id:${socket.id}- ${socket.listenerCount('new-event')}`);
 
         });
 
         socket.on('disconnect', () => {
             console.log(`socket disconnected frontend id:${socket.id} @${getTime()}`)
-            console.log(`clients count after disconnect @${getTime()} id:${socket.id}- ${socket.listenerCount('new-event')}`);
 
         });
 
         socket.on('connect_error', (err)=>console.log('socket error: ', err.message));
         return ()=>{
             socket.off('new-event', handler);
-            console.log(`clients count after handler removed @${getTime()} id:${socket.id}- ${socket.listenerCount('new-event')}`);
         }
     }, []);
     return (
