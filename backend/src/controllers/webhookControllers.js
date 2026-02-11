@@ -46,7 +46,17 @@ export const handleWebhook = async (req, res) => {
             },
             createdAt:event.createdAt
         });
-        console.log('event emitted');
+        console.log("Emitting event:", {
+            id: event._id,
+            eventType: event.eventType,
+            payload: event.payload,
+            source: {
+                service: populatedSource.service,
+                user: populatedSource.user
+            },
+            createdAt: event.createdAt
+        });
+
         source.eventsReceived += 1;
         await source.save();
         return res.status(200).json({
