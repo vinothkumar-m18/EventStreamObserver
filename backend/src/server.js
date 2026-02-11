@@ -14,14 +14,18 @@ export const io = new Server(server, {
         origin:'*'
     }
 });
-io.on('connection', (socket)=>{
-    // console.log('socket connected: ', socket.id);
-    // console.log(' from IP: ', socket.handshake.address);
-    // console.log(' with headers: ', socket.handshake.headers.origin);
-    socket.on('disconnect', ()=>{
-        console.log('socket disconnected: ', socket.id);
+try{
+    io.on('connection', (socket)=>{
+        // console.log('socket connected: ', socket.id);
+        // console.log(' from IP: ', socket.handshake.address);
+        // console.log(' with headers: ', socket.handshake.headers.origin);
+        socket.on('disconnect', ()=>{
+            console.log('socket disconnected: ', socket.id);
+        });
     });
-});
+}catch(error){
+    log
+}
 // establishing db connection and starting the server
 connectDB()
 .then(()=>{

@@ -9,8 +9,7 @@ export const handleWebhook = async (req, res) => {
 
         let source = await WebhookSource.findOne({ endPointPath, active:true});
         if(!source){
-            return res.status(404).json({message:'invalid webhook endpoint'});
-        
+            return res.status(404).json({message:'invalid webhook endpoint'});        
         }
         if(source.service === 'github'){
             const signature = req.headers['x-hub-signature-256'];
