@@ -19,7 +19,8 @@ export default function Dashboard() {
             console.log(`a new event is received through socket @${getTime()}`);
             setEvents((prev) => [event, ...prev]);
         });
-        return () => {
+        return () => {            
+            console.log(`disconnecting socket @${getTime()}`);
             socket.off('new-event');
         };
     }, [])
