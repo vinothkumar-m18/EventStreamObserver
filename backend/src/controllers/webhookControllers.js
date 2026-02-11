@@ -47,7 +47,7 @@ export const handleWebhook = async (req, res) => {
             createdAt:event.createdAt
         });
         console.log("Emitting event:", {
-            id: event._id,
+            _id: event._id,
             eventType: event.eventType,
             payload: event.payload,
             source: {
