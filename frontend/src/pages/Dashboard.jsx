@@ -8,22 +8,32 @@ import EventCard from './EventCard.jsx';
 import {getTime} from '../../../backend/src/utils/getTime.js';
 export default function Dashboard() {
     const [events, setEvents] = useState([]);
-    useEffect(() => {
-        
-        // load existing events
+    useEffect(()=>{
+        const handler = (event) => setEvents(prev => [event, ...prev]);
         fetchEvents().then(data => {
             setEvents(data);
         });
+        socket.on('new-event', handler);
+        console.log(`clients count before connection @${getTime()} id:${socket.id} - ${socket.listenerCount('new-event')}`);
 
-        socket.on('new-event', event => {
-            console.log(`a new event is received through socket @${getTime()}`);
-            setEvents((prev) => [event, ...prev]);
+        socket.on('connect', () => {
+            console.log(`socket connected frontend id:${socket.id} @${getTime()}`)
+            console.log(`clients count after connection @${getTime()} id:${socket.id}- ${socket.listenerCount('new-event')}`);
+
         });
-        return () => {            
-            console.log(`disconnecting socket @${getTime()}`);
-            socket.off('new-event');
-        };
-    }, [])
+
+        socket.on('disconnect', () => {
+            console.log(`socket disconnected frontend id:${socket.id} @${getTime()}`)
+            console.log(`clients count after disconnect @${getTime()} id:${socket.id}- ${socket.listenerCount('new-event')}`);
+
+        });
+
+        socket.on('connect_error', (err)=>console.log('socket error: ', err.message));
+        return ()=>{
+            socket.off('new-event', handler);
+            console.log(`clients count after handler removed @${getTime()} id:${socket.id}- ${socket.listenerCount('new-event')}`);
+        }
+    }, []);
     return (
 
         <div >
