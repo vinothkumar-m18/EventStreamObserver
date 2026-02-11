@@ -17,7 +17,6 @@ export const handleWebhook = async (req, res) => {
                 console.log('no signature header found github');
                 return res.status(400).json({msg:'missing github signature header'});
             }
-            console.log('source.secret: ', source.secret);
             const isValid = verifyGithubSignature(source.secret, JSON.stringify(req.body), signature);
             if(!isValid){
                 return res.status(401).json({msg:'invalid github signature'});
@@ -37,7 +36,7 @@ export const handleWebhook = async (req, res) => {
         });
         const populatedSource = await source.populate('user', 'email');
         io.emit('new-event', {
-            id:event._id,
+            _id:event._id,
             eventType:event.eventType,
             payload:event.payload,
             source:{
@@ -46,16 +45,7 @@ export const handleWebhook = async (req, res) => {
             },
             createdAt:event.createdAt
         });
-        console.log("Emitting event:", {
-            _id: event._id,
-            eventType: event.eventType,
-            payload: event.payload,
-            source: {
-                service: populatedSource.service,
-                user: populatedSource.user
-            },
-            createdAt: event.createdAt
-        });
+        console.log('event emitted');
 
         source.eventsReceived += 1;
         await source.save();

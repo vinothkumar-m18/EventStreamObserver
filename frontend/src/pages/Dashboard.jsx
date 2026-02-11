@@ -5,33 +5,20 @@ import { Link } from "react-router-dom";
 import '../styles/App.css';
 import '../styles/Dashboard.css';
 import EventCard from './EventCard.jsx';
-import {getTime} from '../../../backend/src/utils/getTime.js';
+import { getTime } from '../utils/getTime.js';
 export default function Dashboard() {
     const [events, setEvents] = useState([]);
-    useEffect(()=>{
+    useEffect(() => {
         const handler = (event) => setEvents(prev => [event, ...prev]);
         fetchEvents().then(data => {
             setEvents(data);
         });
-        socket.on('new-event', handler);
-
-        socket.on('connect', () => {
-            console.log(`socket connected frontend id:${socket.id} @${getTime()}`)
-
-        });
-
-        socket.on('disconnect', () => {
-            console.log(`socket disconnected frontend id:${socket.id} @${getTime()}`)
-
-        });
-
-        socket.on('connect_error', (err)=>console.log('socket error: ', err.message));
-        return ()=>{
+        socket.on('new-event', handler);                  
+        return () => {
             socket.off('new-event', handler);
         }
     }, []);
     return (
-
         <div >
             <nav className="navbar">
                 <h3>EventStream Observer</h3>
@@ -42,12 +29,12 @@ export default function Dashboard() {
                     <Link to="/register">Register</Link>
                 </div>
             </nav>
-            <div className = "page">
+            <div className="page">
                 <h2>Live Events</h2>
                 {events.length === 0 && <p>No events yet</p>}
                 <ul className="event-list">
                     {events.map(event => (
-                        <EventCard event = {event} key = {event._id}/>
+                        <EventCard event={event} key={event._id} />
                     ))}
                 </ul>
             </div>
