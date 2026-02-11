@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import '../styles/App.css';
 import '../styles/Dashboard.css';
 import EventCard from './EventCard.jsx';
+import {getTime} from '../../../backend/src/utils/getTime.js';
 export default function Dashboard() {
     const [events, setEvents] = useState([]);
     useEffect(() => {
@@ -15,6 +16,7 @@ export default function Dashboard() {
         });
 
         socket.on('new-event', event => {
+            console.log(`a new event is received through socket @${getTime()}`);
             setEvents((prev) => [event, ...prev]);
         });
         return () => {
