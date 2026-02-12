@@ -9,11 +9,12 @@ const PORT = process.env.PORT || 5000;
 //create HTTP server from express app
 const server = http.createServer(app);
 // embedding http server into a websocket server for real time data updates
+
 export const io = new Server(server, {
     pingInterval: 25000,
     pingTimeout: 60000,
     cors: {
-        origin: 'http://localhost:5173'
+        origin: '*',
     }
 });
 
