@@ -9,7 +9,7 @@ const PrivateRoute = ({children})=>{
     if(!token){
         console.log('no token. redirecting to login');
     }
-    return token ? children : <Navigate to = '/EventStreamObserver/login'/>
+    return token ? children : <Navigate to = '/EventStreamObserver/login' replace/>
 }
 function App(){
     return (
