@@ -18,7 +18,7 @@ export const io = new Server(server, {
     }
 });
 
-try {
+
     io.on('connection', (socket)=>{
         console.log(`socket connected backend id:${socket.id} @${getTime()}`);
 
@@ -30,9 +30,7 @@ try {
             console.log(`socket error id:${socket.id} message:${err.message}`);
         });
     });
-} catch (error) {
-    console.log('socket error: ', error);
-}
+ 
 // establishing db connection and starting the server
 connectDB()
     .then(() => {

@@ -8,7 +8,9 @@ import authRoutes from './routes/authRoutes.js';
 import protect from './middlewares/protect.js';
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin:['https://eventstreamobserver-1.onrender.com']
+}));
 app.use(morgan('dev'));
 app.use('/api/webhook', webhookRoutes);
 app.use('/api/sources', protect, sourcesRoutes);
