@@ -1,6 +1,6 @@
 import axios from 'axios';
 const api = axios.create({
-    baseURL:'https://eventstreamobserver.onrender.com/api'
+    baseURL:'https://eventstreamobserver-130j.onrender.com/api'
 });
 api.interceptors.request.use(config =>{
     const token = localStorage.getItem('token');

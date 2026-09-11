@@ -6,7 +6,7 @@ export const createSource = async (req, res) => {
         if(!(service === 'github')){
             if(!service || eventsAccepted.length === 0){
                 console.log('service and events accepted fields cannot be empty');
-                return res.status(401).json({msg:'fill service and event accepted fields'})
+                return res.status(401).json({msg:'fill service and events accepted fields'})
             }
         }else{
             eventsAccepted = ['push', 'pull_request', 'issues', 'release'];
