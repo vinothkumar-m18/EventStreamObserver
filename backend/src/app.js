@@ -9,7 +9,7 @@ import protect from './middlewares/protect.js';
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin:['https://eventstreamobserver-1.onrender.com']
+    origin:['https://eventstreamobserver-1.onrender.com', 'http://localhost:5173']
 }));
 app.use(morgan('dev'));
 app.use('/api/webhook', webhookRoutes);
