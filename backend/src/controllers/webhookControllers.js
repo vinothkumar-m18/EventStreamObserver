@@ -34,7 +34,7 @@ export const handleWebhook = async (req, res) => {
             status: 'received'
         });
         const populatedSource = await source.populate('user', 'email');
-        const io = app.get('io');
+        const io = req.app.get('io');
         if(io){
             io.emit('new-event', {
                 _id:event._id,
