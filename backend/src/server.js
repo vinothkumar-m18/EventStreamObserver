@@ -10,14 +10,14 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 // embedding http server into a websocket server for real time data updates
 
-export const io = new Server(server, {
+const io = new Server(server, {
     pingInterval: 25000,
     pingTimeout: 60000,
     cors: {
         origin: '*',
     }
 });
-
+app.set('io', io);
 
     io.on('connection', (socket)=>{
         console.log(`socket connected backend id:${socket.id} @${getTime()}`);

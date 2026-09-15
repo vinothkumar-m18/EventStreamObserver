@@ -1,6 +1,5 @@
 import WebhookEvent from '../models/WebhookEvent.js';
 import WebhookSource from '../models/WebhookSource.js';
-import {io} from '../server.js';
 
 import { verifyGithubSignature } from '../utils/verifyGithubSignature.js';
 export const handleWebhook = async (req, res) => {
@@ -35,18 +34,22 @@ export const handleWebhook = async (req, res) => {
             status: 'received'
         });
         const populatedSource = await source.populate('user', 'email');
-        io.emit('new-event', {
-            _id:event._id,
-            eventType:event.eventType,
-            payload:event.payload,
-            source:{
-                service:populatedSource.service,
-                user:{email:populatedSource.user.email}
-            },
-            createdAt:event.createdAt
-        });
-        console.log('event emitted');
-
+        const io = app.get('io');
+        if(io){
+            io.emit('new-event', {
+                _id:event._id,
+                eventType:event.eventType,
+                payload:event.payload,
+                source:{
+                    service:populatedSource.service,
+                    user:{email:populatedSource.user.email}
+                },
+                createdAt:event.createdAt
+            });
+            console.log('event emitted');
+        }else{
+            console.log("socket.io instance not present inside req.app");
+        }
         source.eventsReceived += 1;
         await source.save();
         return res.status(200).json({
