@@ -61,7 +61,7 @@ export const handleWebhook = async (req, res) => {
         console.log('webhook error', error);
         return res.status(500).json(
             { message: 'internal server error',
-              error:{error}
+              error:error.message
             }
         );
     }
