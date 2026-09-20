@@ -13,7 +13,7 @@ export default function Dashboard() {
         fetchEvents().then(data => {
             setEvents(data);
         });
-        socket.on('new-event', handler);                  
+        socket.on('new-event', handler);
         return () => {
             socket.off('new-event', handler);
         }

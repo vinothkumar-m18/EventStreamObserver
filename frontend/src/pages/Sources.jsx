@@ -18,7 +18,7 @@ export default function Sources() {
     };
     const createSource = async () => {
         try {
-            const payload = service === 'github' ? {service} : {service, eventsAccepted};
+            const payload = (service === 'github') ? {service} : {service, eventsAccepted};
             await api.post('/sources', payload);
             fetchSources();
         } catch (error) {
@@ -61,7 +61,7 @@ export default function Sources() {
                 <button style = {{"marginLeft":"10px"}}onClick={createSource}>Create Source</button>
                 {/* rendering sources */}
                 <h3>Registered Sources</h3>
-                <ul>
+                <li>
                     {
                         sources.map(src => (
                             <ul key={src._id} className = "source-card">
@@ -72,16 +72,16 @@ export default function Sources() {
                                     <b>Events Accepted:</b>
                                     <ul className = "events-accepted-list">
                                         {src.eventsAccepted.map((data, index) => (
-                                            <ul key={index}>
+                                            <li key={index}>
                                                 {data}
-                                            </ul>
+                                            </li>
                                         ))}
                                     </ul>
                                 </div>
                             </ul>
                         ))
                     }
-                </ul>
+                </li>
             </div>
         </>
     );

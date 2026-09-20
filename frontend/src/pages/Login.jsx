@@ -14,7 +14,6 @@ export default function Login() {
         try {
             const res = await api.post('/auth/login', { email, password });
             alert(res.data.message || 'logged in successfully');
-            console.log('printing token login.jsx: ', res.data.token);
             login(res.data.token);            
         } catch (error) {     
             if(error.response || error.response.data){
