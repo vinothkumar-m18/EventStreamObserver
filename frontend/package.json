@@ -3,13 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://vinothkumar-m18.github.io/EventStreamObserver",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy":"npm run build"   
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "axios": "^1.13.2",

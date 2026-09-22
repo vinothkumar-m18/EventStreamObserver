@@ -9,6 +9,7 @@ frontend/.env
 
 build/
 frontend/build/
+frontend/dist
 logs/
 *.log
 npm-debug.log*
