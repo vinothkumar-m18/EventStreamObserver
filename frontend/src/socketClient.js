@@ -1,3 +1,4 @@
+// socket client
 import {io} from 'socket.io-client';
 const socket = io('https://backend-ajsh.onrender.com', {
     transports:['websocket'],
@@ -9,7 +10,6 @@ socket.on('connect', ()=>{
 socket.on('disconnect', (reason)=>{
     console.log('socket disconnected frontend reason: ', reason);
 });
-
 export default socket;
 
 
