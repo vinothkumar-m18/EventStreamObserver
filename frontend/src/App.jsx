@@ -5,7 +5,7 @@ import Sources from './pages/Sources.jsx';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext.jsx';
 
-const routerBasename = import.meta.env.PROD ? '/EventStreamObserver' : '/';
+const routerBasename = '/';
 
 const PrivateRoute = ({ children }) => {
     const { token } = useAuth();
