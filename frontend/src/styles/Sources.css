@@ -1,4 +1,4 @@
-.page{
+.page{    
     padding: 20px;
 }
 select, input{
@@ -14,11 +14,15 @@ select, input{
 }
 .events-container{
     display: flex;
-    gap: 0px;
+    gap: 5px;
     align-items: center;
     margin-top: 5px;
 }
+.events-container > ul{
+    list-style-type: none;
+    padding-left: 0;
+}
 .events-accepted-list{
-    display: flex;
-    
+    display: flex;    
+    gap: 10px;
 }

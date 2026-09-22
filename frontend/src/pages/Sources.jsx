@@ -61,10 +61,10 @@ export default function Sources() {
                 <button style = {{"marginLeft":"10px"}}onClick={createSource}>Create Source</button>
                 {/* rendering sources */}
                 <h3>Registered Sources</h3>
-                <li>
+                <ul>
                     {
                         sources.map(src => (
-                            <ul key={src._id} className = "source-card">
+                            <li key={src._id} className = "source-card">
                                 <div>
                                     <b>Service:</b> {src.service}
                                 </div>                                                              
@@ -78,10 +78,10 @@ export default function Sources() {
                                         ))}
                                     </ul>
                                 </div>
-                            </ul>
+                            </li>
                         ))
                     }
-                </li>
+                </ul>
             </div>
         </>
     );
