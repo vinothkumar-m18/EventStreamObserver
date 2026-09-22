@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import socket from '../../src/socketClient.js';
+import socket from '../SocketClient.js';
 import { fetchEvents } from '../api/eventApi.js';
 import { Link } from "react-router-dom";
 import '../styles/App.css';

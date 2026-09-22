@@ -1,5 +1,5 @@
 import {io} from 'socket.io-client';
-const socket = io('https://eventstreamobserver-130j.onrender.com', {
+const socket = io('https://backend-ajsh.onrender.com', {
     transports:['websocket'],
     autoConnect:true
 });
