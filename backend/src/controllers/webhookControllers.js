@@ -1,10 +1,8 @@
 import WebhookEvent from '../models/WebhookEvent.js';
 import WebhookSource from '../models/WebhookSource.js';
-import { webhookSchema } from '../schemas/webhookSchema.js';
 export const handleWebhook = async (req, res) => {
     try {
         const endPointPath = req.params.endPointPath;
-
         let source = await WebhookSource.findOne({ endPointPath, active:true});
         if(!source){
             return res.status(404).json({message:'invalid webhook endpoint'});        
