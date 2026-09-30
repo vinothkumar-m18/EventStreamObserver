@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-export function verifyGithubSignature(secret, payload, signature){
+export default function verifyGithubSignature(secret, payload, signature){
     // starting the signature hash generating machine with the given secret
     const hmac = crypto.createHmac('sha256', secret);
     // feeding the data to the machine and getting the final output in hexadecimal format
