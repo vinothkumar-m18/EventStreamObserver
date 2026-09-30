@@ -12,7 +12,7 @@ export const webhookSchema = z.object({
             );
         },
         z.object({
-            'content-type':z.string({required_error:"Content-Type header is required"}).passthrough()
-        })
+            'content-type':z.string({required_error:"Content-Type header is required"})
+        }).passthrough()
     )
 });
