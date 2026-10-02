@@ -1,6 +1,6 @@
 // socket client
 import {io} from 'socket.io-client';
-const socket = io('https://backend-ajsh.onrender.com', {
+const socket = io('https://creamer-startling-vitally.ngrok-free.dev', {
     transports:['websocket'],
     autoConnect:true
 });

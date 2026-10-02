@@ -1,6 +1,6 @@
 import axios from 'axios';
 const api = axios.create({
-    baseURL:'https://backend-ajsh.onrender.com/api'
+    baseURL:'https://creamer-startling-vitally.ngrok-free.dev/api'
 });
 api.interceptors.request.use(config =>{
     const token = localStorage.getItem('token');
