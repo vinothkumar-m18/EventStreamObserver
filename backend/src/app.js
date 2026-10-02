@@ -11,7 +11,12 @@ app.use(express.json());
 app.use(cors({
     origin:['https://frontend-0wzs.onrender.com', 'http://localhost:5173']
 }));
-app.use(morgan('dev'));
+const morganStream = {
+    write:(message) => logger.http(message.trim())
+};
+const morganFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
+app.use(morgan(morganFormat, {stream:morganStream}));
+
 app.use('/api/webhook', webhookRoutes);
 app.use('/api/sources', protect, sourcesRoutes);
 app.use('/api/events', protect, eventRoutes);
