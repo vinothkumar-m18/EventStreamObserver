@@ -1,6 +1,9 @@
 import axios from 'axios';
 const api = axios.create({
-    baseURL:'https://creamer-startling-vitally.ngrok-free.dev/api'
+    baseURL:'https://creamer-startling-vitally.ngrok-free.dev/api',
+    headers: {
+    'ngrok-skip-browser-warning': 'true' // Bypasses Ngrok interstitial page
+  }
 });
 api.interceptors.request.use(config =>{
     const token = localStorage.getItem('token');
