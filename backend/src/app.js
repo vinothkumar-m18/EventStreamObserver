@@ -8,7 +8,7 @@ import authRoutes from './routes/authRoutes.js';
 import protect from './middlewares/protect.js';
 const app = express();
 app.use(express.json());
-const corsOptions = {
+export const corsOptions = {
     origin:['https://frontend-0wzs.onrender.com', 'http://localhost:5173'],
     credentials:true,
     allowedHeaders:['ngrok-skip-browser-warning', 'Content-Type', 'Authorization'],

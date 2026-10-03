@@ -4,6 +4,7 @@ import app from './app.js';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import { getTime } from './utils/getTime.js';
+import { corsOptions } from './app.js';
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 //create HTTP server from express app
@@ -13,9 +14,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
     pingInterval: 25000,
     pingTimeout: 60000,
-    cors: {
-        origin: '*',
-    }
+    cors: corsOptions        
 });
 app.set('io', io);
 
