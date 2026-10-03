@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors({
     origin:['https://frontend-0wzs.onrender.com', 'http://localhost:5173'],
     credentials:true,
-    allowedHeaders:['ngrok-skip-browser-warning']
+    allowedHeaders:['ngrok-skip-browser-warning', 'Content-Type', 'Authorization']
 }));
 const morganStream = {
     write:(message) => logger.http(message.trim())
