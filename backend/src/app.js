@@ -13,6 +13,7 @@ app.use(cors({
     credentials:true,
     allowedHeaders:['ngrok-skip-browser-warning', 'Content-Type', 'Authorization']
 }));
+app.options('*', cors());
 const morganStream = {
     write:(message) => logger.http(message.trim())
 };
