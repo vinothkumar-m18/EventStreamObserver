@@ -7,15 +7,15 @@ import eventRoutes from './routes/eventRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import protect from './middlewares/protect.js';
 const app = express();
-app.use(express.json());
 export const corsOptions = {
     origin:['https://frontend-0wzs.onrender.com', 'http://localhost:5173'],
     credentials:true,
-    allowedHeaders:['ngrok-skip-browser-warning', 'Content-Type', 'Authorization'],
+    allowedHeaders:['ngrok-skip-browser-warning', 'Content-Type', 'Authorization', 'x-hub-signature-256', 'x-event-type'],
     methods:['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 };
 app.use(cors(corsOptions));
 app.options('{*path}', cors(corsOptions));
+app.use(express.json());
 const morganStream = {
     write:(message) => logger.http(message.trim())
 };
