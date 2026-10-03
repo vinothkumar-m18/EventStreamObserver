@@ -1,7 +1,7 @@
 // socket client
 import {io} from 'socket.io-client';
 const socket = io('https://creamer-startling-vitally.ngrok-free.dev', {
-    transports:['websocket'],
+    transports:['polling', 'websocket'],
     autoConnect:true,
     extraHeaders:{
         'ngrok-skip-browser-warning':'true'
