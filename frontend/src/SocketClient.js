@@ -1,11 +1,15 @@
 // socket client
 import {io} from 'socket.io-client';
+const token = localStorage.getItem('token');
 const socket = io('https://creamer-startling-vitally.ngrok-free.dev', {
-    transports:['polling', 'websocket'],
+    withCredentials: true,
+    transports:['websocket', 'polling'],
     autoConnect:true,
-    extraHeaders:{
-        'ngrok-skip-browser-warning':'true'
-    }
+    ...(token ? {
+        extraHeaders: {
+            Authorization: `Bearer ${token}`
+        }
+    } : {})
 });
 socket.on('connect', ()=>{
     console.log('socket connected frontend ', socket.id);

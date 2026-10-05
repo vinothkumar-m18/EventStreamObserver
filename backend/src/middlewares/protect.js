@@ -3,7 +3,10 @@ import dotenv from 'dotenv';
 import User from '../models/User.js';
 dotenv.config();
 const protect = async (req, res, next)=>{
-    try{        
+    try{
+        if(req.method === 'OPTIONS'){
+            return next();
+        }
         const authHeader = req.headers.authorization;
         if(!authHeader || !authHeader.startsWith('Bearer ')){
             console.log('no token inside middleware');

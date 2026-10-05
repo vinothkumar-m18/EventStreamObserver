@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import logger from './utils/logger.js';
 import webhookRoutes from './routes/webhookRoutes.js';
 import sourcesRoutes from './routes/sourceRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
@@ -10,11 +11,11 @@ const app = express();
 export const corsOptions = {
     origin:['https://frontend-0wzs.onrender.com', 'http://localhost:5173'],
     credentials:true,
-    allowedHeaders:['ngrok-skip-browser-warning', 'Content-Type', 'Authorization', 'x-hub-signature-256', 'x-event-type'],
-    methods:['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    allowedHeaders:['Content-Type', 'Authorization', 'ngrok-skip-browser-warning', 'x-hub-signature-256', 'x-event-type'],
+    methods:['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 };
 app.use(cors(corsOptions));
-app.options('{*path}', cors(corsOptions));
+app.options(/^(.*)$/, cors(corsOptions));
 app.use(express.json());
 const morganStream = {
     write:(message) => logger.http(message.trim())

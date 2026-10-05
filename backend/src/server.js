@@ -14,7 +14,12 @@ const server = http.createServer(app);
 const io = new Server(server, {
     pingInterval: 25000,
     pingTimeout: 60000,
-    cors: corsOptions        
+    cors: {
+        ...corsOptions,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning']
+    }
 });
 app.set('io', io);
 
