@@ -2,7 +2,7 @@
 import { io } from 'socket.io-client';
 
 const token = localStorage.getItem('token');
-const socket = io(' https://creamer-startling-vitally.ngrok-free.dev', {
+const socket = io('https://creamer-startling-vitally.ngrok-free.dev', {
     withCredentials: true,
     transports: ['websocket', 'polling'],   
     ...(token ? {
