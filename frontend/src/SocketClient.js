@@ -2,7 +2,7 @@
 import { io } from 'socket.io-client';
 
 const token = localStorage.getItem('token');
-const socket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000', {
+const socket = io(' https://creamer-startling-vitally.ngrok-free.dev', {
     withCredentials: true,
     transports: ['websocket', 'polling'],   
     ...(token ? {
