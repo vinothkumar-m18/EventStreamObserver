@@ -12,10 +12,11 @@ export const corsOptions = {
     origin:['https://frontend-0wzs.onrender.com', 'http://localhost:5173'],
     credentials:true,
     allowedHeaders:['Content-Type', 'Authorization', 'ngrok-skip-browser-warning', 'x-hub-signature-256', 'x-event-type'],
-    methods:['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+    methods:['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    preflightContinue:false,
+    optionsSuccessStatus:204
 };
 app.use(cors(corsOptions));
-app.options(/^(.*)$/, cors(corsOptions));
 app.use(express.json());
 const morganStream = {
     write:(message) => logger.http(message.trim())
