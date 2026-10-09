@@ -7,45 +7,60 @@ import sourcesRoutes from './routes/sourceRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import protect from './middlewares/protect.js';
+
 const app = express();
+
 export const corsOptions = {
-    origin:['https://frontend-0wzs.onrender.com', 'http://localhost:5173'],
-    credentials:true,
-    allowedHeaders:['Content-Type', 'Authorization', 'ngrok-skip-browser-warning', 'x-hub-signature-256', 'x-event-type'],
-    methods:['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    preflightContinue:false,
-    optionsSuccessStatus:204
+    origin: ['https://frontend-0wzs.onrender.com', 'http://localhost:5173'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning', 'x-hub-signature-256', 'x-event-type'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
+
 const morganStream = {
-    write:(message) => logger.http(message.trim())
+    write: (message) => logger.http(message.trim())
 };
 const morganFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
-app.use(morgan(morganFormat, {stream:morganStream}));
+app.use(morgan(morganFormat, { stream: morganStream }));
 
 app.use('/api/webhook', webhookRoutes);
 app.use('/api/sources', protect, sourcesRoutes);
 app.use('/api/events', protect, eventRoutes);
 app.use('/api/auth', authRoutes);
 
-
 // api health check route
-app.get('/', (req, res)=>{
-    res.json({message:'Eventstream observer API is running'});
+app.get('/', (req, res) => {
+    logger.info('Health check endpoint hit', {
+        method: req.method,
+        url: req.originalUrl
+    });
+    res.json({ message: 'Eventstream observer API is running' });
 });
 
 // Error handling
-//If a route doesn't exist
-app.use((req, res, next)=>{
-    res.status(404).json({message:'route not found'});
+// If a route doesn't exist
+app.use((req, res, next) => {
+    logger.warn('Route not found', {
+        method: req.method,
+        url: req.originalUrl
+    });
+    res.status(404).json({ message: 'route not found' });
 });
 
-//catch unexpected errors
-app.use((err, req, res, next)=>{
-    console.error('server error ', err);
-    res.status(500).json({message:'internal server error'});
+// catch unexpected errors
+app.use((err, req, res, next) => {
+    logger.error('Unhandled server error', {
+        message: err.message,
+        stack: err.stack,
+        method: req.method,
+        url: req.originalUrl
+    });
+    res.status(500).json({ message: 'internal server error' });
 });
 
 export default app;
-// 2
