@@ -1,5 +1,5 @@
 import logger from "../utils/logger.js";
-export const validateWebhook = (schema) => (req, res, next) => {
+export const validate = (schema) => (req, res, next) => {
     try {
         schema.parse({
             params: req.params,
