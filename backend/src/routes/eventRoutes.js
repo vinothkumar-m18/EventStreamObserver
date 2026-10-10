@@ -1,8 +1,10 @@
 import express from 'express';
 import { getUserEvents, getEventsBySource, getSingleEvent, filterEvents} from '../controllers/eventController.js';
+import { validate } from '../middlewares/validate.js';
+import { sourceIdParamSchema, eventIdParamSchema, filterEventsSchema} from '../schemas/eventSchema.js';
 const router = express.Router();
 router.get('/user', getUserEvents);
-router.get('/source/:sourceId', getEventsBySource);
-router.get('/:eventId', getSingleEvent);
-router.get('/filter', filterEvents);
+router.get('/source/:sourceId', validate(sourceIdParamSchema), getEventsBySource);
+router.get('/:eventId', validate(eventIdParamSchema), getSingleEvent);
+router.get('/filter', validate(filterEventsSchema), filterEvents);
 export default router;
