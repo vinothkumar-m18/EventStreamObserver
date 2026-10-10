@@ -1,9 +1,11 @@
 import express from 'express';
 import { createSource, getSourcesByUser, getAllSources, getSourceBYId, toggleSource} from '../controllers/webhookSourceController.js';
+import { validate } from '../middlewares/validate.js';
+import { createSourceSchema, sourceIdParamSchema} from '../schemas/sourceSchema.js';
 const router = express.Router();
-router.post('/', createSource);
+router.post('/', validate(createSourceSchema), createSource);
 router.get('/my', getSourcesByUser);
 router.get('/all', getAllSources);
-router.get('/:sourceId', getSourceBYId);
-router.put('/:sourceId', toggleSource);
+router.get('/:sourceId', validate(sourceIdParamSchema), getSourceBYId);
+router.put('/:sourceId', validate(sourceIdParamSchema), toggleSource);
 export default router;

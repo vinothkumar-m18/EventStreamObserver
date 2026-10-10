@@ -1,5 +1,5 @@
 import {z} from 'zod';
-export const sourceSchema = z.object({
+export const createSourceSchema = z.object({
     body:z.object({
         service:z.string({required_error:'Service is required'})
             .min(1, 'Serivce cannot be empty'),
