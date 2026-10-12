@@ -3,8 +3,14 @@ const {combine, timestamp, printf, colorize, json, errors} = format;
 // local dev
 const devConsoleFormat = printf(
     ({level, message, timestamp, stack, ...meta})=>{
-        const metadata = Object.keys(meta).length ? JSON.stringify(meta) : '';
-        return `[${timestamp}] ${level}: ${stack || message} ${metadata}`;
+        let logOutput = `[${timestamp}] ${level}: ${stack || message}`;
+        if(errors && Array.isArray(errors)){
+            const errorDetails = errors.map(err => `Field '${err.path.join('.')}' -> ${err.message}`).join(', ');
+            logOutput += ` | Validation Errors: [${errorDetails}]`;
+        }else if(Object.keys(meta).length){
+            logOutput += `${JSON.stringify(meta)}`;
+        }
+        return logOutput;
     }
 );
 const logger = createLogger(
