@@ -8,9 +8,10 @@ export const validate = (schema) => (req, res, next) => {
         });
         next();
     } catch (error) {
+        console.log('RAW ZOD ERROR OBJECT: ', error);
         logger.warn('Zod validation failed', {
             path:req.originalUrl,
-            errors:error.errors
+            zodErrors:error.errors
         });
         return res.status(400).json({
             message: 'Invalid request data',
