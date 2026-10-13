@@ -3,18 +3,13 @@ const {combine, timestamp, printf, colorize, json, errors} = format;
 // local dev
 const devConsoleFormat = printf(
     ({level, message, timestamp, stack, zodErrors, ...meta})=>{
-        let logOutput = `[${timestamp}] ${level}: ${stack || message}`;
-        if(errors){
-            consolelog('error object is not null inside dev console format');
-        }else{
-            console.log('error object is null inside dev console format');
-        }
-        if(errors && Array.isArray(errors)){            
-            console.log('dev console if block');
-            const errorDetails = errors.map(err => `Field '${err.path.join('.')}' -> ${err.message}`).join(', ');
+        const validationErrors = Array.isArray(zodErrors) ? zodErrors : [];
+        let logOutput = `[${timestamp}] ${level}: ${stack || message}`;        
+
+        if(validationErrors.length){            
+            const errorDetails = zodErrors.map(err => `Field '${err.path.join('.')}' -> ${err.message}`).join(', ');
             logOutput += ` | Validation Errors: [${errorDetails}]`;
         }else if(Object.keys(meta).length){
-            console.log('dev console else if block');
             logOutput += `${JSON.stringify(meta)}`;
         }
         return logOutput;
