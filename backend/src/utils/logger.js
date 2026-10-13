@@ -2,7 +2,7 @@ import {createLogger, format, transports} from 'winston';
 const {combine, timestamp, printf, colorize, json, errors} = format;
 // local dev
 const devConsoleFormat = printf(
-    ({level, message, timestamp, stack, ...meta})=>{
+    ({level, message, timestamp, stack, errors, ...meta})=>{
         let logOutput = `[${timestamp}] ${level}: ${stack || message}`;
         if(errors && Array.isArray(errors)){
             const errorDetails = errors.map(err => `Field '${err.path.join('.')}' -> ${err.message}`).join(', ');
