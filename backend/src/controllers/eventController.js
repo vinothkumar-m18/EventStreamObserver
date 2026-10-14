@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import WebhookEvent from '../models/WebhookEvent.js';
 import WebhookSource from '../models/WebhookSource.js';
 import logger from '../utils/logger.js';
@@ -38,6 +39,12 @@ export const getUserEvents = async (req, res) => {
 export const getEventsBySource = async (req, res) => {
     try {
         const source = req.params.sourceId;
+        if(!mongoose.isValidObjectId(sourceId)){
+            logger.warn('Give a valid source ID', {sourceId:req.params.sourceId});
+            return res.status(400).json({
+                message:'Invalid source ID'
+            });
+        }
         if (!source) {
             logger.warn('Event lookup attempted without source ID', {
                 userId: req.userId
