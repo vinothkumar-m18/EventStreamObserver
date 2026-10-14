@@ -60,7 +60,10 @@ app.use((err, req, res, next) => {
         method: req.method,
         url: req.originalUrl
     });
-    res.status(500).json({ message: 'internal server error' });
+    res.status(500).json({ message: 'internal server error',
+        errMessage:err.message,
+        stack:err.stack
+     });
 });
 
 export default app;
