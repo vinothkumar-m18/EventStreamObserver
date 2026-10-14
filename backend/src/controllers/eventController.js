@@ -70,11 +70,18 @@ export const getEventsBySource = async (req, res) => {
 };
 
 export const getSingleEvent = async (req, res) => {
-    try {
-        const event = await WebhookEvent.findById(req.params.eventId).populate('source');
+    try {        
+        const eventId = req.params.eventId;
+        if(!mongoose.isValidObjectId(eventId)){
+            logger.warn('Event ID is not a valid Object ID',{eventId:eventId});
+            return res.status(400).json({
+                message:'Invalid event ID'
+            });
+        }
+        const event = await WebhookEvent.findById(eventId).populate('source');
         if (!event) {
             logger.warn('Requested event not found', {
-                eventId: req.params.eventId
+                eventId: eventId
             });
             return res.status(404).json({ message: 'event not found' });
         }
@@ -92,7 +99,7 @@ export const getSingleEvent = async (req, res) => {
         logger.error('Error fetching single event', {
             message: error.message,
             stack: error.stack,
-            eventId: req.params.eventId
+            eventId: eventId
         });
         return res.status(500).json({ message: 'internal server error' });
     }
