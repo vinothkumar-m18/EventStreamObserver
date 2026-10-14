@@ -4,14 +4,17 @@ const {combine, timestamp, printf, colorize, json, errors} = format;
 const devConsoleFormat = printf(
     ({level, message, timestamp, stack, zodErrors, ...meta})=>{
         const validationErrors = Array.isArray(zodErrors) ? zodErrors : [];
-        let logOutput = `[${timestamp}] ${level}: ${stack || message}`;        
+        let logOutput = `[${timestamp}] ${level}: ${stack || message}`;
 
-        if(validationErrors.length){            
-            const errorDetails = zodErrors.map(err => `Field '${err.path.join('.')}' -> ${err.message}`).join(', ');
+        if (validationErrors.length) {
+            const errorDetails = validationErrors
+                .map(err => `Field '${err.path.join('.')}' -> ${err.message}`)
+                .join(', ');
             logOutput += ` | Validation Errors: [${errorDetails}]`;
-        }else if(Object.keys(meta).length){
-            logOutput += `${JSON.stringify(meta)}`;
+        } else if (Object.keys(meta).length) {
+            logOutput += ` ${JSON.stringify(meta)}`;
         }
+
         return logOutput;
     }
 );
