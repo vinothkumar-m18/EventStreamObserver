@@ -19,6 +19,6 @@ export const createSourceSchema = z.object({
 });
 export const sourceIdParamSchema = z.object({
     params:z.object({
-        sourceId: z.string().min(1, 'Source ID parameter is required')
+        sourceId: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid source ID')
     })
 });
