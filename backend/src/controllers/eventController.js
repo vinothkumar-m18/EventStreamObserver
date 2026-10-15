@@ -38,20 +38,13 @@ export const getUserEvents = async (req, res) => {
 
 export const getEventsBySource = async (req, res) => {
     try {
-        const sourceId = req.params.sourceId;
-        if(!mongoose.isValidObjectId(sourceId)){
-            logger.warn('Give a valid source ID', {sourceId:req.params.sourceId});
-            return res.status(400).json({
-                message:'Invalid source ID'
-            });
-        }
+        const {sourcId} = req.params;
         if (!sourceId) {
             logger.warn('Event lookup attempted without source ID', {
                 userId: req.userId
             });
             return res.status(404).json({ message: 'source not found' });
         }
-
         const events = await WebhookEvent.find({ sourceId }).sort({ createdAt: -1 }).limit(200);
         logger.info('Source events fetched successfully', {
             sourceId: sourceId,
