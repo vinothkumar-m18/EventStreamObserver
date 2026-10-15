@@ -71,13 +71,7 @@ export const getEventsBySource = async (req, res) => {
 
 export const getSingleEvent = async (req, res) => {
     try {        
-        const eventId = req.params.eventId;
-        if(!mongoose.isValidObjectId(eventId)){
-            logger.warn('Event ID is not a valid Object ID',{eventId:eventId});
-            return res.status(400).json({
-                message:'Invalid event ID'
-            });
-        }
+        const eventId = req.params.eventId;        
         const event = await WebhookEvent.findById(eventId).populate('source');
         if (!event) {
             logger.warn('Requested event not found', {
