@@ -5,20 +5,31 @@ import logger from '../utils/logger.js';
 export const createSource = async (req, res) => {
     try {
         let { service, eventsAccepted } = req.body;
-
-        if (!(service === 'github')) {
-            if (!service || !Array.isArray(eventsAccepted) || eventsAccepted.length === 0) {
-                logger.warn('Webhook source creation failed: missing service or accepted events', {
-                    userId: req.userId,
+        if(!service){
+            logger.warn('Webhook source creation failed: missing service field', {
+                userId:req.userId,
+                service,
+                eventsAccepted
+            });
+            return res.status(400).json({
+                message:'Service field cannot be empty'
+            });
+        }
+        if(!(service === 'github')){
+            if(!Array.isArray(eventsAccepted) || eventsAccepted.length === 0){
+                logger.warn('Events accepted field cannot be empty for custom services', {
+                    userId:req.userId,
                     service,
                     eventsAccepted
                 });
-                return res.status(401).json({ msg: 'fill service and events accepted fields' });
+                return res.status(400).json({
+                    message:'Fill events accepted field for custom services'
+                });
             }
-        } else {
+        }else{
             eventsAccepted = ['push', 'pull_request', 'issues', 'release'];
-        }
-
+        }        
+        
         const endPointPath = crypto.randomBytes(12).toString('hex');
         const secret = crypto.randomBytes(24).toString('hex');
         const source = await WebHookSource.create({
