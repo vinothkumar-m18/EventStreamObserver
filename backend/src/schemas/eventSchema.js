@@ -9,7 +9,7 @@ export const sourceIdParamSchema = z.object({
 // validate GET /api/events/:eventId
 export const eventIdParamSchema = z.object({
     params:z.object({
-        eventId:z.string().min(1, 'Event ID is required')
+        eventId:z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid event ID')
     })
 });
 
