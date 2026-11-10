@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: ' https://creamer-startling-vitally.ngrok-free.dev/api',
+    baseURL: ' https://backend-ajsh.onrender.com/api',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
