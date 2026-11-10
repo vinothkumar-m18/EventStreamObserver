@@ -2,7 +2,7 @@
 import { io } from 'socket.io-client';
 
 const token = localStorage.getItem('token');
-const socket = io('https://creamer-startling-vitally.ngrok-free.dev/api', {
+const socket = io('https://backend-ajsh.onrender.com/api', {
     withCredentials: true,
     transports: ['websocket', 'polling'],   
     ...(token ? {
